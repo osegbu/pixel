@@ -24,7 +24,7 @@ jobs:
       # Step 3: Build the Docker image with a unique tag
       - name: Build Docker image
         run: |
-          docker build -t osegbu/pychat-chat-service:${{ github.sha }} .
+          docker build -t osegbu/pixel:latest .
 
       # Step 4: Push the Docker image to Docker Hub
       - name: Push Docker image to Docker Hub
