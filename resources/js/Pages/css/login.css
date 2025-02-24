@@ -1,0 +1,28 @@
+.loginCon {
+    width: 420px;
+    max-width: 100%;
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+.appName {
+    font-size: 1.5rem;
+    letter-spacing: 12px;
+    text-align: center;
+    color: blue;
+    margin-bottom: 36px;
+}
+.formLink {
+    margin-top: 8px;
+    text-align: center !important;
+    display: block;
+    font-size: 0.95rem;
+}
+.formCover {
+    padding: 16px;
+    border-radius: 8px;
+    overflow: hidden;
+}

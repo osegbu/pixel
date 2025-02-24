@@ -1,0 +1,43 @@
+# Node dependencies
+node_modules/
+
+# Composer vendor directory
+vendor/
+
+# Environment variables
+# .env
+
+# Laravel public directories to ignore
+public/hot
+public/storage
+public/build   # Ignoring the build folder since it's generated during npm run build
+
+# SQLite database file (you can include this if you want to persist the database)
+# If you don't want to persist the database, uncomment the line below
+# database/*.sqlite
+
+# IDE and editor configuration
+.DS_Store
+.idea/
+.vscode/
+
+# Laravel storage logs and cache (you might want to keep some of these if needed)
+storage/*.key
+storage/*.log
+storage/debugbar
+storage/framework/cache/data/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/logs/*
+
+# Ignoring other files and directories you don't want in the image
+*.log
+*.tmp
+*.lock
+.git
+.gitignore
+
+# NPM/Yarn/Composer lock files (Optional)
+# package-lock.json
+# yarn.lock
+# composer.lock

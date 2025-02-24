@@ -1,0 +1,66 @@
+.title{
+    font-weight: bold;
+    font-size: 2rem;
+    margin-bottom: 24px
+}
+a{
+    font-size: 1rem;
+    text-decoration:none;
+    color: blue;
+    display: block;
+    margin: 8px 0;
+}
+a.active{
+    font-weight: bolder;
+    color:red
+}
+button {
+    margin-top: 8px;
+    background-color: #e1e2e4;
+    color: black;
+    border-radius: 0;
+    padding: 8px 16px;
+    border: none;
+}
+button:hover {
+    cursor: pointer;
+    background-color: #cccccf;
+}
+button:active {
+    outline: 3px solid #e1e2e4;
+}
+.paginator{
+    display: flex;
+    gap: 4px;
+}
+.paginator button{
+    background-color: blue;
+    color: white;
+    border-radius: 4px;
+}
+.paginator button.active{
+    background-color: darkblue !important;
+}
+.paginator button:disabled{
+    background-color: #cccccf !important;
+    cursor: not-allowed;
+    color: grey !important;
+}
+.paginator button:disabled:active{
+    outline: none;
+}
+
+input{
+    width: 300px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 2px solid black;
+}
+form > div{
+    margin-bottom: 16px;
+    margin-top: 8px;
+}
+.errorDiv{
+    margin-top: 4px;
+    color: red;
+}

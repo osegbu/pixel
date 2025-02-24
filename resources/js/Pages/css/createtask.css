@@ -1,0 +1,61 @@
+fieldset label {
+    display: flex;
+    gap: 8px;
+    cursor: pointer;
+}
+fieldset label input {
+    width: fit-content;
+}
+fieldset {
+    border-radius: 4px;
+    border: 1px solid #384357;
+    margin-top: 24px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+fieldset:focus-within {
+    border-color: #111727;
+}
+legend {
+    font-size: 0.9rem;
+}
+fieldset input,
+fieldset select,
+textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    display: block;
+    font-size: 0.95rem;
+    padding: 8px 0;
+    padding-bottom: 12px;
+    background-color: transparent;
+    color: white;
+}
+textarea {
+    resize: none;
+    height: 100px;
+}
+.error {
+    color: red;
+    margin: 4px 0;
+    font-size: 0.9rem;
+}
+.submitBtn {
+    margin-top: 24px;
+    width: 100%;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 4px;
+    background-color: blue;
+    color: white;
+    padding: 10px 16px;
+    cursor: pointer;
+}
+.submitBtn:hover {
+    cursor: pointer;
+    background-color: darkblue;
+}
+.submitBtn:active {
+    background-color: rgb(0, 191, 255);
+}
