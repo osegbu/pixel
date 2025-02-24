@@ -27,7 +27,7 @@ COPY . .
 RUN composer install --optimize-autoloader --no-dev
 
 # Generate Laravel key
-RUN php artisan key:generate
+RUN php artisan key:generate --force
 
 # Set permissions for the SQLite database
 RUN chown -R www-data:www-data /var/www/html/database && \
