@@ -1,66 +1,115 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Pixel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Overview
 
-## About Laravel
+Pixel is a modern task management system designed to help individuals and teams organize, track, and complete tasks efficiently. Built using the robust Laravel backend framework with Inertia.js and a React frontend, the application provides a seamless single-page experience while maintaining full backend power. With TypeScript for type safety and maintainable code, the project ensures both stability and scalability.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Key Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. Task Management
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+    - View All Tasks: A home page that displays all tasks (/).
+    - View Specific Task: View the details of a specific task (/task/{task}), with permissions checking to ensure only authorized users can view tasks.
+    - Create New Tasks: Authenticated users can create tasks (/create and /task/create).
+    - Edit Tasks: Authenticated users can edit existing tasks (/task/edit/{task}) with permission checks in place.
+    - Complete Tasks: Users can mark tasks as complete (/task/complete/{task}) with permission checks to ensure only authorized users can update tasks.
+    - Delete Tasks: Authenticated users can delete tasks (/task/delete/{task}) with permissions enforced.
 
-## Learning Laravel
+2. User Authentication
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+    - Register Users: Users can register for an account (/register) via a form, and their information is stored in the system.
+    - Login Users: Users can log in (/login) and authenticate to access restricted sections of the application.
+    - Logout Users: Users can log out from the system (/logout).
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+3. Permissions and Authorization
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+    - Task Access Control: Routes for viewing, editing, completing, and deleting tasks are protected with middleware to ensure only authenticated and authorized users can interact with specific tasks.
 
-## Laravel Sponsors
+## Prerequisites
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Make sure you have the following installed before proceeding:
 
-### Premium Partners
+-   Docker: [Install Docker](https://docs.docker.com/get-docker/)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Installation
 
-## Contributing
+To get started with Pixel using Docker, follow these steps:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1. **Clone the repository:**
 
-## Code of Conduct
+    ```bash
+    git clone https://github.com/osegbu/pixel.git
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+2. **Navigate to the project directory:**
 
-## Security Vulnerabilities
+    ```bash
+    cd pixel
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+3. **Build and run the Docker container:**
+
+    ```bash
+    docker build -t pixel-app .
+    docker run -p 80:80 pixel-app
+    ```
+
+This command will build the Docker image and run the container, exposing the application on port 80.
+
+## Dockerfile Breakdown
+
+This project uses a multi-stage Dockerfile for efficiency. Here’s an overview of each stage:
+
+1. **Stage 1: PHP Environment**
+
+    - Base image: `php:8.4-fpm`
+    - Installs required PHP extensions (`pdo_mysql`, `mbstring`, `bcmath`, `gd`, etc.)
+    - Installs Composer for managing PHP dependencies
+    - Copies the Laravel application files and installs PHP dependencies using Composer
+    - Sets proper permissions for the SQLite database and storage/cache directories
+
+2. **Stage 2: Node.js Environment**
+
+    - Base image: `node:23.6.0-alpine`
+    - Installs Node.js dependencies and builds frontend assets
+    - This stage is responsible for preparing the frontend part of the application
+
+3. **Stage 3: Nginx + PHP-FPM**
+    - Base image: `php:8.4-fpm`
+    - Installs and configures Nginx
+    - Copies files from previous stages (both backend and frontend)
+    - Starts both Nginx and PHP-FPM to serve the application
+
+## How It Works
+
+-   **Nginx** serves as the web server and proxies requests to PHP-FPM.
+-   **PHP-FPM** handles PHP requests, executing the Laravel backend logic.
+-   **Node.js** builds the frontend assets (e.g., for React or Vue) and those assets are served from the public directory.
+
+## Customization
+
+-   If you need to modify the Nginx configuration, you can edit the `nginx.conf` file located at `docker/nginx.conf`.
+-   You can add or change environment variables by modifying the Dockerfile or passing them when running the container.
+
+## Running the Application
+
+After running the application in Docker, you can access it by visiting `http://localhost` in your browser.
+
+To stop the container:
+
+```bash
+docker stop <container_id>
+```
 
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Have A Feedback?
+
+Feel free to reach out to me!
+
+-   **Email**: [valentineosegbu@gmail.com](mailto:valentineosegbu@gmail.com)
+-   **LinkedIn**: [Obinna Osegbu](https://www.linkedin.com/in/obinna-osegbu-4aa304200/)
+-   **Twitter**: [@obinna_osegbu](https://twitter.com/obinna_osegbu)
+-   **GitHub Issues**: You can also open an issue on this repository if it's related to the project.
