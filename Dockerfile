@@ -1,5 +1,4 @@
-# Stage 1: Build the PHP environment
-FROM php:8.4-fpm AS php
+FROM php:8.2-fpm
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -11,68 +10,68 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     sqlite3 \
+    libsqlite3-dev \
     nginx \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+    sudo
 
-# Install Composer
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install PHP extensions
+RUN docker-php-ext-install pdo pdo_sqlite pdo_mysql mbstring exif pcntl bcmath gd
+
+# Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Set working directory
-WORKDIR /var/www/html
-
-# Copy Laravel application files
-COPY . .
-
-# Install PHP dependencies
-RUN composer install --optimize-autoloader --no-dev
-
-# Generate Laravel key
-RUN php artisan key:generate --force
-
-# Set permissions for the SQLite database
-RUN chown -R www-data:www-data /var/www/html/database && \
-    chmod -R 777 /var/www/html/database
-
-# Set permissions for storage and bootstrap/cache
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-
-# Stage 2: Build the Node.js environment
-FROM node:23.6.0-alpine AS node
+# Install Node.js and npm
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+RUN apt-get install -y nodejs
 
 # Set working directory
-WORKDIR /app
+WORKDIR /var/www
 
-# Copy package.json and package-lock.json
-COPY package.json package-lock.json ./
+# Copy existing application directory contents
+COPY . /var/www
 
-# Install Node.js dependencies
+# Install Composer dependencies
+RUN composer install
+
+# Install npm dependencies
 RUN npm install
-
-# Copy the rest of the application files
-COPY . .
-
-# Build frontend assets (e.g., React, Vue)
+RUN npm rebuild
 RUN npm run build
 
-# Stage 3: Final image with Nginx and PHP-FPM
-FROM php:8.4-fpm
+# Let's hope rollup isn't really needed...
+# RUN npm install @rollup/rollup-linux-x64-gnu --verbose
 
-# Install Nginx
-RUN apt-get update && apt-get install -y nginx
+# Set up SQLite database
+#RUN touch database/database.sqlite
+# RUN php artisan migrate # Commented out for brevity. Migrations were done before.
 
-# Copy Nginx configuration
-COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+# Generate application key
+RUN php artisan key:generate
 
-# Copy built assets from the PHP and Node stages
-COPY --from=php /var/www/html /var/www/html
-COPY --from=node /app/public /var/www/html/public
+# Expose port 80 and start php-fpm server
+EXPOSE 8080
 
-# Copy start script
-COPY start.sh /usr/local/bin/start.sh
-RUN chmod +x /usr/local/bin/start.sh
+# Copy nginx configuration
+COPY nginx.conf /etc/nginx/sites-available/default
 
-# Expose port 80
-EXPOSE 80
+# Set some permissions for nginx
+RUN chown -R www-data:www-data /var/www/storage
+RUN chmod -R 775 /var/www/storage
+#
+# Set correct permissions for SQLite
+RUN touch /var/www/database/database.sqlite
+RUN chown -R www-data:www-data /var/www/database
+RUN chmod -R 775 /var/www/database
 
-# Start Nginx and PHP-FPM
-CMD ["/usr/local/bin/start.sh"]
+# Give permissions to www-data
+# RUN mkdir /etc/sudoers.d/ # This directory didn't exist before, but it will now because
+# we're installing sudo
+RUN echo "www-data ALL=(ALL) NOPASSWD: /usr/sbin/nginx" >> /etc/sudoers.d/www-data
+
+# Switch to www-data user
+# USER www-data
+
+CMD ["/var/www/start.sh"]
