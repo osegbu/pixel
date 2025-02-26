@@ -1,3 +1,4 @@
+# Base image
 FROM php:8.4-fpm
 
 # Install system dependencies
@@ -41,43 +42,35 @@ RUN npm install
 RUN npm rebuild
 RUN npm run build
 
-# Let's hope rollup isn't really needed...
-# RUN npm install @rollup/rollup-linux-x64-gnu --verbose
+# Set permissions for SQLite and storage
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache /var/www
+RUN chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www
 
-# Set up SQLite database
-#RUN touch database/database.sqlite
-# RUN php artisan migrate # Commented out for brevity. Migrations were done before.
+# Set correct permissions for SQLite database
+RUN touch /var/www/database/database.sqlite
+RUN chown -R www-data:www-data /var/www/database
+RUN chmod -R 775 /var/www/database
 
 # Generate application key
 RUN php artisan key:generate
 
-# Expose port 80 and start php-fpm server
+# Expose port 8080 for nginx
 EXPOSE 8080
 
 # Copy nginx configuration
 COPY nginx.conf /etc/nginx/sites-available/default
 
-# Set some permissions for nginx
-RUN chown -R www-data:www-data /var/www/storage
-RUN chmod -R 775 /var/www/storage
-
-
-# Set correct permissions for SQLite
-RUN chown -R www-data:www-data /var/www/database
-RUN chmod -R 775 /var/www/database
-
-
-# Set permissions for storage and bootstrap/cache
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
-
 # Give execute permissions to start.sh
 RUN chmod +x /var/www/start.sh
 
-# Give permissions to www-data
+# Add nginx permissions for www-data user
 RUN echo "www-data ALL=(ALL) NOPASSWD: /usr/sbin/nginx" >> /etc/sudoers.d/www-data
 
+# Enable PHP error logging
+RUN echo "error_log = /var/log/php_errors.log" >> /usr/local/etc/php/conf.d/docker-php-errors.ini
+
 # Switch to www-data user
-# USER www-data
+USER www-data
 
+# Run start.sh to start services
 CMD ["/var/www/start.sh"]
-
