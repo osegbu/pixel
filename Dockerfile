@@ -58,7 +58,7 @@ RUN php artisan key:generate
 EXPOSE 8080
 
 # Copy nginx configuration
-COPY nginx.conf /etc/nginx/sites-available/default
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Give execute permissions to start.sh
 RUN chmod +x /var/www/start.sh
@@ -68,6 +68,11 @@ RUN echo "www-data ALL=(ALL) NOPASSWD: /usr/sbin/nginx" >> /etc/sudoers.d/www-da
 
 # Enable PHP error logging
 RUN echo "error_log = /var/log/php_errors.log" >> /usr/local/etc/php/conf.d/docker-php-errors.ini
+
+# Ensure necessary directories for Nginx
+RUN mkdir -p /var/lib/nginx/body /run/nginx /tmp/nginx/body
+RUN chown -R www-data:www-data /var/lib/nginx /run/nginx /tmp/nginx/body
+RUN chmod -R 755 /var/lib/nginx /run/nginx /tmp/nginx/body
 
 # Switch to www-data user
 USER www-data
