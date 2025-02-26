@@ -68,7 +68,7 @@ RUN chmod -R 775 /var/www/database
 
 
 # Set permissions for storage and bootstrap/cache
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 # Give execute permissions to start.sh
 RUN chmod +x /var/www/start.sh
