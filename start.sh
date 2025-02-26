@@ -2,32 +2,24 @@
 
 # Debug info
 echo "Current user: $(whoami)"
-echo "Storage permissions: $(ls -l /var/www/storage)"
+echo "Storage permissions:"
+ls -l /var/www/storage
+echo "Database permissions:"
+ls -l /var/www/database
 
-# Set correct permissions, already done
-# chown -R www-data:www-data /var/www/storage
-# chmod -R 775 /var/www/storage
-
-# Clear and cache config (for good measure)
+# Clear and cache Laravel configuration
+echo "Clearing and caching configuration..."
 php artisan config:clear
 php artisan config:cache
 
+# Run migrations to ensure the database is up-to-date, especially for the sessions table
+echo "Running database migrations..."
+php artisan migrate --force
+
 # Start nginx
-# echo "Starting nginx..."
-nginx
+echo "Starting nginx..."
+nginx &
 
 # Start php-fpm
-# echo "Starting php-fpm..."
+echo "Starting php-fpm..."
 php-fpm
-
-# Alternative option:
-# Start Laravel server in the foreground
-# echo "Starting Laravel server"
-# php artisan serve --host=0.0.0.0 --port=8080
-
-# or...
-
-# Start Laravel server in the background (with &)
-# php artisan serve --host=0.0.0.0 --port=8080 &
-# Start Vite development server
-# npm run dev -- --host 0.0.0.0
