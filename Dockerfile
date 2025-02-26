@@ -65,6 +65,9 @@ RUN chmod -R 775 /var/www/storage
 RUN chown -R www-data:www-data /var/www/database
 RUN chmod -R 775 /var/www/database
 
+# Give execute permissions to start.sh
+RUN chmod +x /var/www/start.sh
+
 # Give permissions to www-data
 # RUN mkdir /etc/sudoers.d/ # This directory didn't exist before, but it will now because
 # we're installing sudo
