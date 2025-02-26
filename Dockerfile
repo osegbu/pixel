@@ -41,17 +41,19 @@ RUN npm install
 RUN npm rebuild
 RUN npm run build
 
-# Let's hope rollup isn't really needed...
-# RUN npm install @rollup/rollup-linux-x64-gnu --verbose
+# Create the SQLite database file and set the proper permissions
+RUN mkdir -p /var/www/database && \
+    touch /var/www/database/database.sqlite && \
+    chown -R www-data:www-data /var/www/database && \
+    chmod -R 775 /var/www/database
 
-# Set up SQLite database
-#RUN touch database/database.sqlite
-# RUN php artisan migrate # Commented out for brevity. Migrations were done before.
+# Set up SQLite database (optional, if migrations are needed)
+# RUN php artisan migrate --force
 
 # Generate application key
 RUN php artisan key:generate
 
-# Expose port 80 and start php-fpm server
+# Expose port 80
 EXPOSE 8080
 
 # Copy nginx configuration
@@ -60,20 +62,12 @@ COPY nginx.conf /etc/nginx/sites-available/default
 # Set some permissions for nginx
 RUN chown -R www-data:www-data /var/www/storage
 RUN chmod -R 775 /var/www/storage
-#
-# Set correct permissions for SQLite
-RUN chown -R www-data:www-data /var/www/database
-RUN chmod -R 775 /var/www/database
 
 # Give execute permissions to start.sh
 RUN chmod +x /var/www/start.sh
 
-# Give permissions to www-data
-# RUN mkdir /etc/sudoers.d/ # This directory didn't exist before, but it will now because
-# we're installing sudo
+# Give permissions to www-data for sudo commands
 RUN echo "www-data ALL=(ALL) NOPASSWD: /usr/sbin/nginx" >> /etc/sudoers.d/www-data
 
-# Switch to www-data user
-# USER www-data
-
+# Start the application
 CMD ["/var/www/start.sh"]
