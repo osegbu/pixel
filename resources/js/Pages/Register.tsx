@@ -27,69 +27,71 @@ export default function Register() {
 
     return (
         <div className="loginCon">
-            <div className="appName">
-                <b>PIXEL</b>
-            </div>
+            <div className="inner">
+                <div className="appName">
+                    <b>PIXEL</b>
+                </div>
 
-            <div className="formCover">
-                <div style={{ textAlign: "center" }}>Create account</div>
+                <div className="formCover">
+                    <div style={{ textAlign: "center" }}>Create account</div>
 
-                <form onSubmit={onSubmit}>
-                    <fieldset>
-                        <legend>Email: </legend>
-                        <input
-                            type="email"
-                            name="email"
-                            value={data.email}
-                            placeholder="E-mail"
-                            onInput={handleInput}
-                        />
-                    </fieldset>
-                    {!processing && errors.email && (
-                        <div className="error">{errors.email}</div>
-                    )}
+                    <form onSubmit={onSubmit}>
+                        <fieldset>
+                            <legend>Email: </legend>
+                            <input
+                                type="email"
+                                name="email"
+                                value={data.email}
+                                placeholder="E-mail"
+                                onInput={handleInput}
+                            />
+                        </fieldset>
+                        {!processing && errors.email && (
+                            <div className="error">{errors.email}</div>
+                        )}
 
-                    <fieldset>
-                        <legend>Password: </legend>
-                        <input
-                            type="password"
-                            name="password"
-                            value={data.password}
-                            placeholder="Password"
-                            onInput={handleInput}
-                        />
-                    </fieldset>
+                        <fieldset>
+                            <legend>Password: </legend>
+                            <input
+                                type="password"
+                                name="password"
+                                value={data.password}
+                                placeholder="Password"
+                                onInput={handleInput}
+                            />
+                        </fieldset>
 
-                    {!processing && errors.password && (
-                        <div className="error">{errors.password}</div>
-                    )}
+                        {!processing && errors.password && (
+                            <div className="error">{errors.password}</div>
+                        )}
 
-                    <fieldset>
-                        <legend>Confirm Password: </legend>
-                        <input
-                            type="password"
-                            name="password_confirmation"
-                            value={data.password_confirmation}
-                            placeholder="Confirm Password"
-                            onInput={handleInput}
-                        />
-                    </fieldset>
+                        <fieldset>
+                            <legend>Confirm Password: </legend>
+                            <input
+                                type="password"
+                                name="password_confirmation"
+                                value={data.password_confirmation}
+                                placeholder="Confirm Password"
+                                onInput={handleInput}
+                            />
+                        </fieldset>
 
-                    <div>
-                        <button
-                            type="submit"
-                            className="submitBtn"
-                            disabled={processing}
-                        >
-                            Submit
-                        </button>
-                    </div>
+                        <div>
+                            <button
+                                type="submit"
+                                className="submitBtn"
+                                disabled={processing}
+                            >
+                                Submit
+                            </button>
+                        </div>
 
-                    <div className="formLink">
-                        Already have an account ?{" "}
-                        <Link href="/login">Login</Link>
-                    </div>
-                </form>
+                        <div className="formLink">
+                            Already have an account ?{" "}
+                            <Link href="/login">Login</Link>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     );

@@ -25,53 +25,57 @@ export default function Register() {
 
     return (
         <div className="loginCon">
-            <div className="appName">PIXEL</div>
+            <div className="inner">
+                <div className="appName">PIXEL</div>
 
-            <div className="formCover">
-                <div style={{ textAlign: "center" }}>Login to your account</div>
-
-                <form onSubmit={onSubmit}>
-                    <fieldset>
-                        <legend>Email: </legend>
-                        <input
-                            type="email"
-                            name="email"
-                            value={data.email}
-                            placeholder="E-mail"
-                            onInput={handleInput}
-                        />
-                    </fieldset>
-
-                    <fieldset>
-                        <legend>Password: </legend>
-                        <input
-                            type="password"
-                            name="password"
-                            value={data.password}
-                            placeholder="Password"
-                            onInput={handleInput}
-                        />
-                    </fieldset>
-
-                    {!processing && errors.password && (
-                        <div className="error">{errors.password}</div>
-                    )}
-
-                    <div>
-                        <button
-                            type="submit"
-                            className="submitBtn"
-                            disabled={processing}
-                        >
-                            Submit
-                        </button>
+                <div className="formCover">
+                    <div style={{ textAlign: "center" }}>
+                        Login to your account
                     </div>
 
-                    <div className="formLink">
-                        Don't have an account ?{" "}
-                        <Link href="/register">Create an account</Link>
-                    </div>
-                </form>
+                    <form onSubmit={onSubmit}>
+                        <fieldset>
+                            <legend>Email: </legend>
+                            <input
+                                type="email"
+                                name="email"
+                                value={data.email}
+                                placeholder="E-mail"
+                                onInput={handleInput}
+                            />
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Password: </legend>
+                            <input
+                                type="password"
+                                name="password"
+                                value={data.password}
+                                placeholder="Password"
+                                onInput={handleInput}
+                            />
+                        </fieldset>
+
+                        {!processing && errors.password && (
+                            <div className="error">{errors.password}</div>
+                        )}
+
+                        <div>
+                            <button
+                                type="submit"
+                                className="submitBtn"
+                                disabled={processing}
+                            >
+                                Submit
+                            </button>
+                        </div>
+
+                        <div className="formLink">
+                            Don't have an account ?
+                            <Link href="/register">Create an account</Link>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     );

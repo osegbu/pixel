@@ -6,11 +6,17 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: white;
+    color: black;
+    background-color: white;
+    border-radius: 8px;
+}
+.inner {
+    padding: 16px 16px 0 16px;
 }
 .appName {
     font-size: 1.5rem;
     letter-spacing: 12px;
+    font-weight: bold;
     text-align: center;
     color: blue;
     margin-bottom: 36px;
@@ -21,8 +27,10 @@
     display: block;
     font-size: 0.95rem;
 }
+.formLink a {
+    font-size: 0.9rem;
+}
 .formCover {
-    padding: 16px;
     border-radius: 8px;
     overflow: hidden;
 }
