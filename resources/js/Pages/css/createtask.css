@@ -14,7 +14,7 @@ fieldset {
     padding-bottom: 0;
 }
 fieldset:focus-within {
-    border-color: #111727;
+    border-color: #f2f2f2;
 }
 legend {
     font-size: 0.9rem;

@@ -2,7 +2,7 @@ body,
 html {
     font-family: "Poppins", "Quicksand", "Helvetica Neue", Helvetica, Arial,
         sans-serif;
-    background-color: #111727;
+    background-color: #f2f2f2;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -13,6 +13,74 @@ html {
     gap: 16px;
     width: 100%;
 }
+
+.title {
+    font-weight: bold;
+    font-size: 2rem;
+    margin-bottom: 24px;
+}
+a {
+    font-size: 1rem;
+    text-decoration: none;
+    color: blue;
+    display: block;
+    margin: 8px 0;
+}
+a.active {
+    font-weight: bolder;
+    color: red;
+}
+button {
+    margin-top: 8px;
+    background-color: #e1e2e4;
+    color: black;
+    border-radius: 0;
+    padding: 8px 16px;
+    border: none;
+}
+button:hover {
+    cursor: pointer;
+    background-color: #cccccf;
+}
+button:active {
+    outline: 3px solid #e1e2e4;
+}
+.paginator {
+    display: flex;
+    gap: 4px;
+}
+.paginator button {
+    background-color: blue;
+    color: black;
+    border-radius: 4px;
+}
+.paginator button.active {
+    background-color: darkblue !important;
+}
+.paginator button:disabled {
+    background-color: #cccccf !important;
+    cursor: not-allowed;
+    color: grey !important;
+}
+.paginator button:disabled:active {
+    outline: none;
+}
+
+input {
+    width: 300px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 2px solid black;
+}
+form > div {
+    margin-bottom: 16px;
+    margin-top: 8px;
+}
+.errorDiv {
+    margin-top: 4px;
+    color: red;
+}
+
 .topCard > div {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -23,12 +91,13 @@ html {
     text-align: center;
     padding: 24px 16px;
     border-radius: 8px;
-    background-color: #1f2935;
-    color: white;
+    background-color: white;
+    color: black;
 }
 .cardName {
     font-size: 1.2rem;
     margin-bottom: 16px;
+    font-weight: bold;
     white-space: nowrap;
 }
 .pendingCard {
@@ -38,7 +107,7 @@ html {
     color: blueviolet;
 }
 .completedCard {
-    color: lightgreen;
+    color: green;
 }
 .mainContainer {
     width: 1200px;
@@ -59,7 +128,7 @@ html {
     width: 100%;
 }
 .rightSide > div {
-    background-color: #111727;
+    background-color: #f2f2f2;
     padding: 8px;
     border-radius: 4px;
 }
@@ -70,7 +139,7 @@ html {
     border: none;
     outline: none;
     cursor: pointer;
-    color: white;
+    color: black;
     margin-top: 4px;
 }
 option {
@@ -81,11 +150,11 @@ option {
     font-weight: bold;
 }
 .insideCon {
-    background-color: #1f2935;
+    background-color: white;
     padding: 16px;
     border-radius: 8px;
     overflow: hidden;
-    color: white;
+    color: black;
 }
 .filterTitle {
     margin-bottom: 16px;
@@ -97,12 +166,12 @@ table {
 }
 
 thead {
-    background-color: #111727;
+    background-color: #f2f2f2;
 }
 
 th {
     padding: 12px 15px;
-    border-bottom: 2px solid #2c3544;
+    border-bottom: 2px solid #cccccf;
     white-space: nowrap;
     text-transform: capitalize;
     font-weight: bold;
@@ -110,11 +179,11 @@ th {
 }
 
 tr {
-    border-bottom: 1px solid #2c3544;
+    border-bottom: 1px solid #cccccf;
 }
 
 tbody tr:hover {
-    background-color: #111727;
+    background-color: #f2f2f2;
     cursor: pointer;
 }
 td {
@@ -182,11 +251,11 @@ td a {
         border: none;
         margin-top: 16px;
         border-radius: 8px;
-        background-color: #111727;
+        background-color: #f2f2f2;
     }
 
     tr:hover {
-        background-color: #151c30 !important;
+        background-color: #fafafa !important;
     }
     td {
         text-align: right;
@@ -229,6 +298,7 @@ td a {
     }
     .cardName {
         font-size: 1rem;
+        font-weight: normal;
         margin-bottom: 8px;
     }
     .topCard > div {
@@ -258,7 +328,7 @@ td a {
     background-color: blueviolet;
 }
 .taskRow {
-    background-color: #111727;
+    background-color: #f2f2f2;
     padding: 16px;
     margin-top: 16px;
     border-radius: 8px;
@@ -282,12 +352,13 @@ td a {
 .taskButton {
     border: none;
     border-radius: 4px;
-    color: white;
+    color: black;
     padding: 10px 16px;
     cursor: pointer;
 }
 .deleteBtn {
     background-color: red;
+    color: white;
 }
 .deleteBtn:hover {
     background-color: darkred;
@@ -298,6 +369,7 @@ td a {
 
 .editBtn {
     background-color: blue;
+    color: white;
 }
 .editBtn:hover {
     background-color: darkblue;
@@ -308,6 +380,7 @@ td a {
 
 .completeBtn {
     background-color: green;
+    color: white;
 }
 .completeBtn:hover {
     background-color: darkgreen;

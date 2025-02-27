@@ -1,18 +1,34 @@
-.title{
+body,
+html {
+    font-family: "Poppins", "Quicksand", "Helvetica Neue", Helvetica, Arial,
+        sans-serif;
+    background-color: #f2f2f2;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+#app {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 16px;
+    width: 100%;
+}
+
+.title {
     font-weight: bold;
     font-size: 2rem;
-    margin-bottom: 24px
+    margin-bottom: 24px;
 }
-a{
+a {
     font-size: 1rem;
-    text-decoration:none;
+    text-decoration: none;
     color: blue;
     display: block;
     margin: 8px 0;
 }
-a.active{
+a.active {
     font-weight: bolder;
-    color:red
+    color: red;
 }
 button {
     margin-top: 8px;
@@ -29,38 +45,38 @@ button:hover {
 button:active {
     outline: 3px solid #e1e2e4;
 }
-.paginator{
+.paginator {
     display: flex;
     gap: 4px;
 }
-.paginator button{
+.paginator button {
     background-color: blue;
     color: white;
     border-radius: 4px;
 }
-.paginator button.active{
+.paginator button.active {
     background-color: darkblue !important;
 }
-.paginator button:disabled{
+.paginator button:disabled {
     background-color: #cccccf !important;
     cursor: not-allowed;
     color: grey !important;
 }
-.paginator button:disabled:active{
+.paginator button:disabled:active {
     outline: none;
 }
 
-input{
+input {
     width: 300px;
     padding: 8px;
     border-radius: 8px;
     border: 2px solid black;
 }
-form > div{
+form > div {
     margin-bottom: 16px;
     margin-top: 8px;
 }
-.errorDiv{
+.errorDiv {
     margin-top: 4px;
     color: red;
 }

@@ -42,9 +42,7 @@ RUN npm rebuild
 RUN npm run build
 
 # Create the SQLite database file and set the proper permissions
-RUN mkdir -p /var/www/database && \
-    touch /var/www/database/database.sqlite && \
-    chown -R www-data:www-data /var/www/database && \
+RUN chown -R www-data:www-data /var/www/database && \
     chmod -R 775 /var/www/database
 
 # Set up SQLite database (optional, if migrations are needed)
@@ -53,7 +51,7 @@ RUN mkdir -p /var/www/database && \
 # Generate application key
 RUN php artisan key:generate
 
-# Expose port 80
+# Expose port 8080
 EXPOSE 8080
 
 # Copy nginx configuration

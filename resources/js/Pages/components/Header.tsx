@@ -23,11 +23,9 @@ export default function Header() {
                     Pixel
                 </Link>
 
-                <div className="headerRight">
-                    <Link href="/create" className="createTaskBtn" as="button">
-                        Create Task
-                    </Link>
-                </div>
+                <Link href="/create" className="createTaskBtn" as="button">
+                    Create Task
+                </Link>
             </div>
         </div>
     );

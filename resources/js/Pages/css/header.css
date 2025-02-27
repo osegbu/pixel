@@ -1,33 +1,27 @@
 .headerContainer {
-    padding: 8px 16px;
-    background-color: #1f2935;
-    border-bottom: 2px solid #2c3544;
+    background-color: white;
+    padding: 0 16px 8px 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .header {
     width: 1200px;
-    height: 40px;
     margin: 0 auto;
     position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .logo {
     font-weight: bold;
-    line-height: 40px;
     text-decoration: none;
-    color: white;
+    color: blue;
     font-size: 1.5rem;
-}
-.headerRight {
-    position: absolute;
-    right: 0;
-    top: 0;
-    display: flex;
-    gap: 8px;
 }
 
 .createTaskBtn {
     font-size: 0.85rem;
     border: none;
-    background-color: #111727;
+    background-color: blue;
     color: white;
     padding: 12px 16px;
     border-radius: 4px;
@@ -35,10 +29,10 @@
 }
 .createTaskBtn:hover {
     cursor: pointer;
-    background-color: #0a0e18;
+    background-color: darkblue;
 }
 .createTaskBtn:active {
-    outline: 4px solid #111727;
+    outline: 4px solid #f2f2f2;
 }
 
 @media (max-width: 1200px) {
